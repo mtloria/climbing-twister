@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Climbing Twister</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: black;
+  line-height: 1.8;
+}
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+</style>
+</head>
+<body>
+<div>
+    <h2 id="twister-text"></h2>
+    <button onclick="twister()">Twist!</button>
+</div>
+<script>
+function twister() {
+	const colors = ['Red','Yellow','Green','Blue','Purple','Pink','Black','White'];
+    const bodyParts = ['Right Hand','Left Hand','Right Foot','Left Foot'];
+    
+    document.getElementById("twister-text").innerHTML = randomizer(bodyParts) + ' - ' + randomizer(colors);
+}
+
+function randomizer(elementList) {
+	return elementList[Math.floor(Math.random() * elementList.length)];
+}
+</script>
+
+</body>
+</html>
