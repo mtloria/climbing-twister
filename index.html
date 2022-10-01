@@ -4,6 +4,10 @@
 <title>Climbing Twister</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="add-to-home/style/addtohomescreen.css">
+<script src="add-to-home/src/addtohomescreen.js"></script>
 <style>
 body, html {
   height: 100%;
@@ -54,6 +58,8 @@ body, html {
   </div>
 </div>
 <script>
+addToHomescreen();
+
 function twister() {
 	const colors = ['Red','Yellow','Green','Blue','Purple','Pink','Black','White'];
     const bodyParts = ['Right Hand','Left Hand','Right Foot','Left Foot'];
