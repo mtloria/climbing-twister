@@ -33,6 +33,24 @@ body, html {
   background-color: #4682b4;
   transform: translateY(4px);
 }
+#reset-twists-button {
+  width: 50%;
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #a89e13;
+  border: none;
+  border-radius: 15px;
+}
+#reset-twists-button:active {
+  background-color: #645f26;
+  transform: translateY(4px);
+}
 .center {
   width: 100%;
   position: absolute;
@@ -179,6 +197,11 @@ html, body {
   .menu > li:not(:last-child) {
     border-bottom: 1px solid #444;
   }
+
+  .twists-count-container {
+    margin-left: 10px;
+    padding-top: 30px;
+  }
 }
 </style>
 </head>
@@ -193,12 +216,12 @@ html, body {
 </label>
   <ul class="menu">
     <li>
-      <input type="checkbox" id="noLimbRepeatCheckbox">
-      <label for="noLimbRepeatCheckbox">No Limb Repeats</label>
+      <input type="checkbox" id="no-limb-repeat-checkbox">
+      <label for="no-limb-repeat-checkbox">No Limb Repeats</label>
     </li>
     <li>
-      <input type="checkbox" id="noColorRepeatCheckbox">
-      <label for="noColorRepeatCheckbox">No Color Repeats</label>
+      <input type="checkbox" id="no-color-repeat-checkbox">
+      <label for="no-color-repeat-checkbox">No Color Repeats</label>
     </li>
   </ul>
 </section>
@@ -209,6 +232,12 @@ html, body {
   <div class="button-container">
     <button id="twister-button" onclick="twister()">Twist!</button>
   </div>
+  <div class="twists-count-container">
+    <h3 id="twists-number-text">Number of twists: 0</h3>
+  </div>
+  <div class="button-container">
+    <button id="reset-twists-button" onclick="resetTwister()">Reset Twister</button>
+  </div>
 </div>
 <script>
 addToHomescreen();
@@ -217,22 +246,40 @@ const colors = ['Red','Yellow','Green','Blue','Purple','Pink','Black','White'];
 const limbs = ['Right Hand','Left Hand','Right Foot','Left Foot'];
 let previousColor = "";
 let previousLimb = "";
+let twistNumber = 0;
 
 function twister() {
+  twistNumber += 1;
   let currentColor = shouldAllowRepeatColors() ? randomizer(colors) : getNonRepeatColor();
   previousColor = currentColor;
   let currentLimb = shouldAllowRepeatLimbs() ? randomizer(limbs) : getNonRepeatLimb();
   previousLimb = currentLimb;
 
-  document.getElementById("twister-text").innerHTML = currentLimb + ' - ' + currentColor;
+  const twistCommandText = currentLimb + ' - ' + currentColor;
+  setElementText("twister-text", twistCommandText);
+  setElementText("twists-number-text", getTwistCountText());
+}
+
+function resetTwister() {
+  twistNumber = 0;
+  setElementText("twister-text", "Tap to Start");
+  setElementText("twists-number-text", getTwistCountText());
+}
+
+function getTwistCountText() {
+  return "Number of twists: " + twistNumber;
+}
+
+function setElementText(elementId, text) {
+  document.getElementById(elementId).innerHTML = text;
 }
 
 function shouldAllowRepeatLimbs() {
-  return !document.getElementById("noLimbRepeatCheckbox").checked;
+  return !document.getElementById("no-limb-repeat-checkbox").checked;
 }
 
 function shouldAllowRepeatColors() {
-  return !document.getElementById("noColorRepeatCheckbox").checked;
+  return !document.getElementById("no-color-repeat-checkbox").checked;
 }
 
 function getNonRepeatColor() {
